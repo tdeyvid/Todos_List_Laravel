@@ -15,25 +15,20 @@ class TodolistController
     }
     public function index()
     {
+
         $search = request('search');
+        $seletor = request('seletor');
 
-        if ($search) {
-
-            $todos = Todos::where([
-                ['title', 'like', '%' . $search . '%']
-            ])->get();
-        } else {
-
-            $todos = Todos::all();
-        }
-
-        $count_search = Todos::where([
-            ['title', 'like', '%' . $search . '%']
-        ])->count();
-
+        $todos = Todos::all();
         $count = Todos::count();
 
-        return view('todo.index', ["todos" => $todos,  "count" => $count, "count_search" => $count_search, "search" => $search]);
+        if ($seletor && $search) {
+
+            $todos = Todos::where([[$seletor, 'like', '%' . $search . '%']])->get();
+            $count = Todos::where([[$seletor, 'like', '%' . $search . '%']])->count();
+        }
+
+        return view('todo.index', ["todos" => $todos,  "count" => $count,  "search" => $search]);
     }
 
 

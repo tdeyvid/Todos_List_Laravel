@@ -9,9 +9,13 @@
         <form method="get" action="">
             <div class="form-group">
 
-                <label class="pesquisar">Pesquisar pela tarefa:</label><br>
+                <label class="pesquisar">Pesquisar:</label><br>
                 <input type="text" id="search" name="search" class="campo_pesquisar" maxlength="40" requiredrequired autofocus />
                 <br>
+                <select class="campo_select" name="seletor">
+                    <option value="title">Tarefa</option>
+                    <option value="date_time">Data de criação</option>
+                </select>
 
                 <input type="submit" value="Pesquisar" class="bnt_pesquisar">
                 <input type="reset" value="Limpar" class="bnt_pesquisar">
@@ -19,14 +23,13 @@
             </div>
         </form>
         <br>
-        <p style='color:green;'> Pesquisa: <strong> {{ $count_search }} </strong> registros encontrados com a palavra: <strong>{{ $search }} </strong>.</p><br>
-
-        <p style='color:red;'>Total: <strong> {{ $count}} </strong> registros.</p><br>
+        <p style='color:green;'> Pesquisa: <strong> {{ $count }} </strong> registros encontrados com a palavra: <strong>{{ $search }} </strong>.</p><br>
      
         @foreach ($todos as $todos)
         <article>
             <p>Codigo: {{ $todos->id }}</p>
             <p>Tarefa: {{ $todos->title }}</p>
+            <p><strong>Data de criação:</strong>  {{ $todos->date_time }}</p>
             <br>
             <div class="form-todos">
                 <button type="button" class="bnt_todos">
